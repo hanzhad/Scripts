@@ -1,0 +1,36 @@
+#! /bin/bash
+
+ACTION=$1
+
+declare -a ACTIONS_LIST=(
+  start
+  stop
+  status
+  restart
+)
+
+program() {
+  if [[ $ACTION == "${ACTIONS_LIST[0]}" ]]; then
+    pg_ctl -D /usr/local/var/postgres start
+    return;
+  fi
+
+  if [[ $ACTION == "${ACTIONS_LIST[1]}" ]]; then
+      pg_ctl -D /usr/local/var/postgres stop
+    return;
+  fi
+
+  if [[ $ACTION == "${ACTIONS_LIST[2]}" ]]; then
+      pg_ctl -D /usr/local/var/postgres status
+    return;
+  fi
+
+  if [[ $ACTION == "${ACTIONS_LIST[2]}" ]]; then
+      pg_ctl -D /usr/local/var/postgres restart
+    return;
+  fi
+
+  echo '[ERROR] Not enough parameters.'
+}
+
+program

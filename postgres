@@ -1,12 +1,16 @@
 #! /bin/bash
 
 ACTION=$1
+PARAMS=$@
+REST_PARAMS="${PARAMS[@]:$(echo -n $1 | wc -m)}"
 
 declare -a ACTIONS_LIST=(
   start
   stop
   status
   restart
+  createuser
+  createdb
 )
 
 program() {
@@ -25,8 +29,18 @@ program() {
     return;
   fi
 
-  if [[ $ACTION == "${ACTIONS_LIST[2]}" ]]; then
+  if [[ $ACTION == "${ACTIONS_LIST[3]}" ]]; then
       pg_ctl -D /usr/local/var/postgres restart
+    return;
+  fi
+
+  if [[ $ACTION == "${ACTIONS_LIST[4]}" ]]; then
+      /usr/local/Cellar/postgresql/13.2_1/bin/createuser$REST_PARAMS
+    return;
+  fi
+
+    if [[ $ACTION == "${ACTIONS_LIST[4]}" ]]; then
+      /usr/local/Cellar/postgresql/13.2_1/bin/createdb$REST_PARAMS
     return;
   fi
 

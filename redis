@@ -1,0 +1,26 @@
+#! /usr/local/bin/bash
+
+ACTION=$1
+
+program() {
+  case $ACTION in
+  "start")
+    brew services start redis
+    return
+    ;;
+  "stop")
+    brew services stop redis
+    return
+    ;;
+  "restart")
+    brew services restart redis
+    return
+    ;;
+  *)
+    echo '[ERROR] Not enough parameters.'
+    exit 1
+    ;;
+  esac
+}
+
+program

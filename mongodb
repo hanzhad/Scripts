@@ -1,0 +1,26 @@
+#! /usr/local/bin/bash
+
+ACTION=$1
+
+program() {
+  case $ACTION in
+  "start")
+    brew services start mongodb-community
+    return
+    ;;
+  "stop")
+    brew services stop mongodb-community
+    return
+    ;;
+  "restart")
+    brew services restart mongodb-community
+    return
+    ;;
+  *)
+    echo '[ERROR] Not enough parameters.'
+    exit 1
+    ;;
+  esac
+}
+
+program
